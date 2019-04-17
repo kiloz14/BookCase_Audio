@@ -181,4 +181,14 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
             mediaControlBinder = null;
         }
     };
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        if(isconnected){
+            unbindService(serviceConnection);
+            isconnected = false;
+        }
+    }
 }
