@@ -1,7 +1,10 @@
 package com.example.bookcase_audio;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
         listFragment = new BookListFragment();
         viewPagerFragment = new ViewPagerFragment();
 
-        bindService(new Intent(this, AudiobookService.class), servicesConnection, BIND_AUTO_CREATE);
+        bindService(new Intent(this, AudiobookService.class), serviceConnection, BIND_AUTO_CREATE);
         if(!singlePane){
             addFragment(listFragment, R.id.container_1);
             addFragment(detailsFragment, R.id.container_2);
@@ -164,4 +167,18 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
     }
 
 
+    ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mediaControlBinder = ((AudiobookService.MediaControlBinder)service);
+            isconnected = true;
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isconnected = false;
+            mediaControlBinder = null;
+        }
+    };
 }
