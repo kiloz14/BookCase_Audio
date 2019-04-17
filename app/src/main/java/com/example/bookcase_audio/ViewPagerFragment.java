@@ -27,6 +27,7 @@ public class ViewPagerFragment extends Fragment {
     BookDetailsFragment newFragment;
     Book bookObj;
     ArrayList<Book> books;
+    ArrayList<BookDetailsFragment> bookDetailsFragments;
 
   //  private OnFragmentInteractionListener mListener;
 
@@ -56,25 +57,21 @@ public class ViewPagerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_view_pager, container, false);
         pagerAdapter = new PagerAdapter(getChildFragmentManager());
         books = new ArrayList<>();
+        bookDetailsFragments = new ArrayList<>();
         viewPager = v.findViewById(R.id.viewPager);
         viewPager.setAdapter(pagerAdapter);
 
         return v;
     }
 
-    public void addPager(final ArrayList bookArray) {
-        books.clear();
-        books.addAll(bookArray);
+    public void addPager(final ArrayList<Book> bookArray) {
         for(int i = 0; i < books.size(); i++) {
-
-
                 bookObj = books.get(i);
                 newFragment = BookDetailsFragment.newInstance(bookObj);
-                pagerAdapter.add(newFragment);
-
+                bookDetailsFragments.add(newFragment);
             }
-        pagerAdapter.getItemPosition(bookObj);
-        pagerAdapter.notifyDataSetChanged();
+        pagerAdapter.addBooks(bookDetailsFragments);
+
         }
 
 
@@ -106,6 +103,13 @@ public class ViewPagerFragment extends Fragment {
         @Override
         public int getCount() {
             return pagerFragments.size();
+        }
+
+        public void addBooks(ArrayList<BookDetailsFragment> bookDetailsFragments) {
+
+            pagerFragments.clear();
+            pagerFragments.addAll(bookDetailsFragments);
+            notifyDataSetChanged();
         }
     }
 }
