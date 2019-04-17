@@ -19,9 +19,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements BookListFragment.BookInterface {
+import edu.temple.audiobookplayer.AudiobookService;
 
+public class MainActivity extends AppCompatActivity implements BookListFragment.BookInterface, BookDetailsFragment.BookDetailsInterface {
+
+    AudiobookService.MediaControlBinder mediaControlBinder;
     boolean singlePane;
+    boolean isconnected;
     BookDetailsFragment detailsFragment;
     ViewPagerFragment viewPagerFragment;
     BookListFragment listFragment;
@@ -124,5 +128,30 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
     @Override
     public void bookSelected(Book bookObj) {
         detailsFragment.displayBook(bookObj);
+    }
+
+    @Override
+    public void playBook(int id) {
+
+    }
+
+    @Override
+    public void pauseBook() {
+
+    }
+
+    @Override
+    public void stopBook() {
+
+    }
+
+    @Override
+    public void seekBook(int position) {
+
+    }
+
+    @Override
+    public void setProgress(Handler progress) {
+
     }
 }
