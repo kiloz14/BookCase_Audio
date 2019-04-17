@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class Book implements Parcelable {
 
-    private int id;
+    private int id, duration;
     private String title, author, coverURL, published;
 
     public Book(JSONObject jsonBook) throws JSONException {
@@ -18,6 +18,7 @@ public class Book implements Parcelable {
         this.author = jsonBook.getString("author");
         this.coverURL = jsonBook.getString("cover_url");
         this.published = jsonBook.getString("published");
+        this.duration = jsonBook.getInt("duration");
     }
 
     protected Book(Parcel in) {
@@ -27,6 +28,7 @@ public class Book implements Parcelable {
         author = in.readString();
         coverURL = in.readString();
         published = in.readString();
+        duration = in.readInt();
 
     }
 
@@ -64,11 +66,17 @@ public class Book implements Parcelable {
     public void setCoverURL(String coverURL) {
         this.coverURL = coverURL;
     }
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
 
     public int getId() {
         return id;
     }
 
+    public int getDuration (){
+        return duration;
+    }
     public String getPublished() {
         return published;
     }
