@@ -1,5 +1,6 @@
 package com.example.bookcase_audio;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setContentView(R.layout.activity_main);
         searchText = findViewById(R.id.searchText);
+        searchText.clearFocus();
         button = findViewById(R.id.searchButton);
         bookList = new ArrayList<>();
 
@@ -50,11 +51,13 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
         listFragment = new BookListFragment();
         viewPagerFragment = new ViewPagerFragment();
 
+        bindService(new Intent(this, AudiobookService.class), servicesConnection, BIND_AUTO_CREATE);
         if(!singlePane){
             addFragment(listFragment, R.id.container_1);
             addFragment(detailsFragment, R.id.container_2);
         } else {
             addFragment(viewPagerFragment, R.id.container_3);
+            addFragment(detailsFragment, R.id.container_3);
         }
 
         button.setOnClickListener(new View.OnClickListener() {
