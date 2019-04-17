@@ -18,12 +18,13 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-
+import edu.temple.audiobookplayer.AudiobookService;
 
 
 public class BookListFragment extends Fragment {
 
 
+    AudiobookService.MediaControlBinder mediaControlBinder;
     private BookInterface mListener;
     private Context c;
     ArrayList <Book> bookList;
